@@ -1,0 +1,15 @@
+node_modules
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+.babelrc
+
+calculation.js
+calOG.js
+csvFiles/cal.exe
+routes/triSearch.js
+routes/triS.exe
+routes/userRoutesMobile.js
