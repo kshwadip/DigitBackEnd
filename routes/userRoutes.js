@@ -56,7 +56,7 @@ router.post("/Resvectors", async (req, res) => {
       isNaN(matches) || matches == null ? 3 : parseInt(matches, 10)
     ];
 
-    const exePath = "./csvFiles/cal.exe";
+    const exePath = "./csvFiles/cal";
     const process = spawn(exePath, args);
 
     let stdoutData = "";
@@ -94,7 +94,7 @@ router.post("/Reqpattern", async (req, res) => {
     const {Fpanel, Spanel} = req.body;
     
     let args = [Fpanel, Spanel];
-    const exePath = "./routes/triS.exe";
+    const exePath = "./routes/triS";
     const process = spawn(exePath, args);
 
     let stdoutData = "";
