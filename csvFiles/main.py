@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup
 import os
 
 display_name_map = {
-    "Kaylan.csv": "KALYAN",
-    "KaylanNight.csv": "KALYAN NIGHT",
+    "Kalyan.csv": "KALYAN",
+    "KalyanNight.csv": "KALYAN NIGHT",
     "MainBazar.csv": "MAIN BAZAR",
     "MilanDay.csv": "MILAN DAY",
     "MilanNight.csv": "MILAN NIGHT",
