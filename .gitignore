@@ -9,7 +9,11 @@ node_modules
 
 calculation.js
 calOG.js
+
+csvFiles/cal.cjs
 csvFiles/cal.exe
+
 routes/triSearch.js
+routes/triS.cjs
 routes/triS.exe
 routes/userRoutesMobile.js
