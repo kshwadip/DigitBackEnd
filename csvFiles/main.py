@@ -1,24 +1,10 @@
 import csv
 import datetime
-import os
-import re
 import requests
 from bs4 import BeautifulSoup
+import os
 
-URL = "https://sattamatkadpboss.co/"
-CSV_FILES = [
-    "Kaylan.csv",
-    "KaylanNight.csv",
-    "MainBazar.csv",
-    "MilanDay.csv",
-    "MilanNight.csv",
-    "RajdhaniDay.csv",
-    "RajdhaniNight.csv",
-    "TimeBazar.csv"
-]
-
-# Mapping file names to display names on the site
-DISPLAY_MAP = {
+display_name_map = {
     "Kaylan.csv": "KALYAN",
     "KaylanNight.csv": "KALYAN NIGHT",
     "MainBazar.csv": "MAIN BAZAR",
@@ -29,87 +15,70 @@ DISPLAY_MAP = {
     "TimeBazar.csv": "TIME BAZAR",
 }
 
+csv_files = list(display_name_map.keys())
+
+def is_sunday():
+    return datetime.datetime.now().weekday() == 6
+
 def fetch_results():
-    response = requests.get(URL)
+    url = "https://sattamatkadpboss.co/"
+    response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
-
+    news_blocks = soup.find_all("div", class_="news2")
     result_map = {}
-    for tag in soup.find_all(["div"], class_=["news2", "fix"]):
-        name_tag = tag.find("span", style=re.compile("color:.*?"))
-        result_tag = tag.find_all("span", style=re.compile("color:black"))
-
-        if name_tag and result_tag:
-            name = name_tag.text.strip().upper()
-            result_text = result_tag[0].text.strip()
-
-            # Skip if it's loading or incomplete like 123-4
-            if result_text.lower() == "loading...":
-                continue
-            if not re.fullmatch(r"\d{3}-\d{2}-\d{3}", result_text):
-                continue
-
-            open_, jodi, close = result_text.split("-")
-            result_map[name] = [int(open_), int(jodi), int(close)]
+    for block in news_blocks:
+        spans = block.find_all("span")
+        if not spans or len(spans) < 2:
+            continue
+        name = spans[0].text.strip().upper()
+        result_text = spans[1].text.strip()
+        if result_text.lower() == "loading...":
+            continue
+        parts = result_text.split("-")
+        if len(parts) == 3:
+            result_map[name] = parts
+        elif len(parts) == 2:
+            result_map[name] = [parts[0], parts[1], "404"]
     return result_map
 
-def update_csv(file_name, result):
-    file_path = f"csvFiles/{file_name}"
+def update_csv(file_name, new_result):
+    file_path = os.path.join("csvFiles", file_name)
     updated = False
     with open(file_path, "r") as f:
         rows = list(csv.reader(f))
-
     today = datetime.datetime.now()
-    today_row = [str(today.day), str(today.month), str(today.year % 100)]
-
     for row in rows:
-        if row[:3] == today_row:
-            total_columns = len(row)
-
-            # Determine number of days in file (each has 3 columns)
-            days = (total_columns - 3) // 3
-
-            # Sunday check (6 = Sunday)
-            if today.weekday() == 6:
-                print("It's Sunday. Skipping update.")
-                return
-
-            # Sunday-included file? Skip because it already has 404s
-            if days == 7:
-                print(f"{file_name} includes Sunday. Skipping.")
-                return
-
-            # Which column triplet to update
-            col_start = 3 + today.weekday() * 3
-            triplet = row[col_start:col_start+3]
-
-            # If triplet is placeholder (404,303,404), update it
-            if triplet == ["404", "303", "404"]:
-                row[col_start:col_start+3] = list(map(str, result))
-                updated = True
+        try:
+            row_date = datetime.date(int("20" + row[2]), int(row[1]), int(row[0]))
+        except Exception:
+            continue
+        if row_date != today.date():
+            continue
+        day_index = today.weekday()
+        if day_index >= 6:
+            continue
+        start = 3 + day_index * 3
+        triplet = row[start:start+3]
+        if triplet == ["404", "303", "404"]:
+            row[start:start+3] = new_result
+            updated = True
             break
-
     if updated:
         with open(file_path, "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerows(rows)
-        print(f"Updated {file_name} with {result}")
+            csv.writer(f).writerows(rows)
+        print(f"✅ Updated {file_name}")
     else:
         print(f"No update needed for {file_name}")
 
 def main():
-    # Skip if Sunday
-    if datetime.datetime.now().weekday() == 6:
-        print("Today is Sunday. Script exiting.")
+    if is_sunday():
+        print("🛑 Today is Sunday. Skipping update.")
         return
-
     result_map = fetch_results()
-
-    for file in CSV_FILES:
-        display_name = DISPLAY_MAP[file]
+    for file in csv_files:
+        display_name = display_name_map[file]
         if display_name in result_map:
             update_csv(file, result_map[display_name])
-        else:
-            print(f"No result found for {file}")
 
 if __name__ == "__main__":
     main()
