@@ -36,7 +36,7 @@ for div in soup.find_all("div", class_="news2"):
             results[name] = value
 
 # Process each CSV file
-csv_dir = os.path.join("csvFiles", "data")
+csv_dir = "csvFiles"
 for file_name, display_name in file_display_map.items():
     file_path = os.path.join(csv_dir, file_name)
     updated = False
