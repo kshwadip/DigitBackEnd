@@ -7,8 +7,8 @@ from bs4 import BeautifulSoup
 
 URL = "https://sattamatkadpboss.co/"
 CSV_FILES = [
-    "Kaylan.csv",
-    "KaylanNight.csv",
+    "Kalyan.csv",
+    "KalyanNight.csv",
     "MainBazar.csv",
     "MilanDay.csv",
     "MilanNight.csv",
@@ -19,8 +19,8 @@ CSV_FILES = [
 
 # Mapping file names to display names on the site
 DISPLAY_MAP = {
-    "Kaylan.csv": "KALYAN",
-    "KaylanNight.csv": "KALYAN NIGHT",
+    "Kalyan.csv": "KALYAN",
+    "KalyanNight.csv": "KALYAN NIGHT",
     "MainBazar.csv": "MAIN BAZAR",
     "MilanDay.csv": "MILAN DAY",
     "MilanNight.csv": "MILAN NIGHT",
