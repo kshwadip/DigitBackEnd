@@ -4,9 +4,28 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
+<<<<<<< HEAD
 display_name_map = {
     "Kaylan.csv": "KALYAN",
     "KaylanNight.csv": "KALYAN NIGHT",
+=======
+URL = "https://sattamatkadpboss.co/"
+CSV_FILES = [
+    "Kalyan.csv",
+    "KalyanNight.csv",
+    "MainBazar.csv",
+    "MilanDay.csv",
+    "MilanNight.csv",
+    "RajdhaniDay.csv",
+    "RajdhaniNight.csv",
+    "TimeBazar.csv"
+]
+
+# Mapping file names to display names on the site
+DISPLAY_MAP = {
+    "Kalyan.csv": "KALYAN",
+    "KalyanNight.csv": "KALYAN NIGHT",
+>>>>>>> 45e4cb39170c81db4fac8a72b52dd887ea4dbfcc
     "MainBazar.csv": "MAIN BAZAR",
     "MilanDay.csv": "MILAN DAY",
     "MilanNight.csv": "MILAN NIGHT",
