@@ -33,5 +33,5 @@ jobs:
        git config --global user.name "github-actions"
        git config --global user.email "github-actions@github.com"
        git add .
-       git diff --cached --quiet || git commit -m "Update CSV results"
+       git diff --cached --quiet || git commit -m "Auto🔁 Updated CSV results"
        git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/LINEADDA/Digit_backend.git HEAD:main
