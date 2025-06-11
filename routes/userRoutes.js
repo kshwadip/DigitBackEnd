@@ -17,6 +17,7 @@ router.get("/Reqvectors", async (req, res) => {
 router.post("/Resvectors", async (req, res) => {
   try {
     const {
+      selectedSite,
       searchType,
       numberOfUpWeeks,
       numberOfDownWeeks,
@@ -39,6 +40,7 @@ router.post("/Resvectors", async (req, res) => {
     const value22 = value2[2];
 
     const args = [
+      isNaN(selectedSite) || selectedSite == null ? 0 : parseInt(selectedSite, 10),
       isNaN(searchType) || searchType == null ? 0 : parseInt(searchType, 10),
       isNaN(numberOfUpWeeks) || numberOfUpWeeks == null ? 5 : parseInt(numberOfUpWeeks, 10),
       isNaN(numberOfDownWeeks) || numberOfDownWeeks == null ? 5 : parseInt(numberOfDownWeeks, 10),
