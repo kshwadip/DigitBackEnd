@@ -29,14 +29,15 @@ router.post("/Resvectors", async (req, res) => {
       dateInput2,
       dateInput3,
       fixedDate,
-      turn,
+      numberOfN2Skips,
+      numberOfN3Skips,
       matches
     } = req.body;
 
     const value20 = value2[0];
     const value21 = value2[1];
     const value22 = value2[2];
- 
+
     const args = [
       isNaN(searchType) || searchType == null ? 0 : parseInt(searchType, 10),
       isNaN(numberOfUpWeeks) || numberOfUpWeeks == null ? 5 : parseInt(numberOfUpWeeks, 10),
@@ -52,7 +53,8 @@ router.post("/Resvectors", async (req, res) => {
       dateInput2 == null || dateInput2 === "" ? "00/00/00" : dateInput2,
       dateInput3 == null || dateInput3 === "" ? "00/00/00" : dateInput3,
       isNaN(fixedDate) || fixedDate == null ? 1 : parseInt(fixedDate, 10),
-      isNaN(turn) || turn == null ? 0 : parseInt(turn, 10),
+      isNaN(numberOfN2Skips) || numberOfN2Skips == null ? 0 : parseInt(numberOfN2Skips, 10),
+      isNaN(numberOfN3Skips) || numberOfN3Skips == null ? 0 : parseInt(numberOfN3Skips, 10),
       isNaN(matches) || matches == null ? 3 : parseInt(matches, 10)
     ];
 
@@ -69,7 +71,6 @@ router.post("/Resvectors", async (req, res) => {
     });
 
     process.on("close", (code) => {
-      // Check if the process ended successfully
       if (code !== 0) {
         console.error("Error in execution:", stderrData);
         return res.status(500).json(`Server Error: ${stderrData}`);
@@ -91,8 +92,8 @@ router.post("/Resvectors", async (req, res) => {
 
 router.post("/Reqpattern", async (req, res) => {
   try {
-    const {Fpanel, Spanel} = req.body;
-    
+    const { Fpanel, Spanel } = req.body;
+
     let args = [Fpanel, Spanel];
     const exePath = "./routes/triS";
     const process = spawn(exePath, args);
@@ -107,7 +108,6 @@ router.post("/Reqpattern", async (req, res) => {
     });
 
     process.on("close", (code) => {
-      // Check if the process ended successfully
       if (code !== 0) {
         console.error("Error in execution:", stderrData);
         return res.status(500).json(`Server Error: ${stderrData}`);

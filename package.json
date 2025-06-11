@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "build": "babel calOG.js --out-file ./csvFiles/cal.cjs",
-    "packageWindows": "pkg ./csvFiles/cal.cjs --target node16-win-x64 --output ./csvFiles/cal.exe",
-    "packageLinux": "pkg ./csvFiles/cal.cjs --target node16-linux-x64 --output ./csvFiles/cal",
-    "buildTri": "babel ./routes/triSearch.js --out-file ./routes/triS.cjs",
-    "packageTri": "pkg ./routes/triS.cjs --target node16-linux-x64 --output ./routes/triS"
+    
+    "build":"npm run createSrc && npm run packageSrc",
+    "buildTri":"npm run createTri && npm run packageTri",
+
+    "createSrc": "babel calOG.js --out-file ./csvFiles/cal.cjs",
+    "packageSrc": "pkg ./csvFiles/cal.cjs --target node16-win-x64 --output ./csvFiles/cal.exe && pkg ./csvFiles/cal.cjs --target node16-linux-x64 --output ./csvFiles/cal && cd csvFiles && del cal.cjs",
+
+    "createTri": "babel ./routes/triSearch.js --out-file ./routes/triS.cjs",
+    "packageTri": "pkg ./routes/triS.cjs --target node16-win-x64 --output ./routes/triS.exe && pkg ./routes/triS.cjs --target node16-linux-x64 --output ./routes/triS && cd routes && del triS.cjs"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

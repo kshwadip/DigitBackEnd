@@ -1,26 +1,25 @@
+# node_modules folder 
 node_modules
 
-# Env
+# Env variables
 .env
 .env.*
 !.env.example
 !.env.test
 .babelrc
 
+# JavaScript files
 calculation.js
 calOG.js
-
-csvFiles/cal.cjs
-csvFiles/cal.exe
-
 routes/triSearch.js
-routes/triS.cjs
-routes/triS.exe
 routes/userRoutesMobile.js
 
+# Exe files
+csvFiles/cal.exe
+routes/triS.exe
+
+# Text files
 N1.txt
-N1Date.txt
 N2.txt
-N2Date.txt
 N3.txt
-N3Date.txt
+N1Date.txt
