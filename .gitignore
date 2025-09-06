@@ -13,6 +13,7 @@ calculation.js
 calOG.js
 routes/triSearch.js
 routes/userRoutesMobile.js
+routes/Search.js
 
 # Exe files
 csvFiles/cal.exe
