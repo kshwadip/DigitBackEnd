@@ -10,7 +10,6 @@ node_modules
 
 # JavaScript files
 calculation.js
-calOG.js
 routes/triSearch.js
 routes/userRoutesMobile.js
 routes/Search.js
