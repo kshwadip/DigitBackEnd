@@ -1,3 +1,6 @@
+🕛Live Deployment
+- https://digit-backend-bz25.onrender.com/
+
 # 📦 Project Overview
 
 This project is a full-fledged, production-grade web application developed for a client during a gap year after B.Tech graduation. It demonstrates end-to-end system design and development, including authentication, subscription management (planned), CI/CD, and deployment using modern technologies.
